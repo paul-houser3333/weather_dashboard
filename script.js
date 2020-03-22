@@ -20,9 +20,9 @@ function renderButtons() {
     }
 }
 
-// Function to display current weather (and UV index) based on either search or city button click
+// Function to display current weather 
 function displayWeather() {
-    //URL for AJAX Call - note: units=imperial
+    //URL for AJAX Call 
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=" + APIKey + "&units=imperial";
     //AJAX Call
     $.ajax({
@@ -60,7 +60,7 @@ function displayWeather() {
             var icon = response.weather[0].icon;
             var iconurl = "http://openweathermap.org/img/w/" + icon + ".png";
             $('#icon').attr('src', iconurl);
-            //Call for longitude and latitude (for UV Index AJAX Call)
+            //Call for UV Index AJAX Call.
             var lon = response.coord.lon
             var lat = response.coord.lat
             //URL for UV Index API
@@ -78,20 +78,20 @@ function displayWeather() {
             if (listOfCities.includes(response.name) === false) {
                 listOfCities.push(response.name)
             }
-            //Run the functions to render buttons, save cities, and display the 5 day forcast
+            //Run the functions to render buttons and save cities.
             renderButtons()
             saveCities()
             display5day()
         })
 };
 
-// Function to display 5 day weather, called by displayWeather function
+// Function to display 5 day
 function display5day() {
     //URL for 5 day forcast call
     var forcastURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey
     //Added Header that displays with results
     $(".fiveDayHeader").html("<h3>5 Day Forecast</h3>")
-    //AJAX call for 5 day forecast
+    //AJAX call for 5 day 
     $.ajax({
         url: forcastURL,
         method: "GET"
@@ -166,6 +166,5 @@ $(document).ready(function() {
         var pushCities = JSON.parse(savedCity)
         listOfCities = listOfCities.concat(pushCities)
     }
-    //render buttons
     renderButtons()
     })
